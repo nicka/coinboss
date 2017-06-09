@@ -1,0 +1,10 @@
+# Push custom metrics
+- Effect: Allow
+  Action:
+    - cloudwatch:PutMetricData
+  Resource: "*"
+# Publish SNS messages
+- Effect: Allow
+  Action:
+    - sns:Publish
+  Resource: "*"

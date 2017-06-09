@@ -1,0 +1,7 @@
+.serverless/
+build/
+coverage/
+dist/
+docs/
+lib/__snapshots__/
+node_modules/

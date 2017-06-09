@@ -1,0 +1,57 @@
+{
+  "name": "coinboss",
+  "version": "0.0.1",
+  "description": "Automagically buy BTC, ETH or LTC on Coinbase, based on user defined thresholds.",
+  "author": "Nick den Engelsman",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nicka/coinboss"
+  },
+  "scripts": {
+    "build": "source .env.$STAGE && sls package",
+    "deploy": "source .env.$STAGE && sls deploy --verbose",
+    "test": "eslint . && jest",
+    "serve": "source .env.$STAGE && sls webpack serve"
+  },
+  "dependencies": {
+    "coinbase": "^2.0.6"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.66.0",
+    "aws-sdk-mock": "^1.7.0",
+    "babel-core": "^6.25.0",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "eslint": "^4.0.0",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.3.0",
+    "jest": "^20.0.4",
+    "nock": "^9.0.13",
+    "serverless": "^1.15.1",
+    "serverless-plugin-diff": "^1.3.0",
+    "serverless-webpack": "^1.0.0-rc.4",
+    "webpack": "^2.6.1",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "jest": {
+    "bail": true,
+    "collectCoverage": true,
+    "coverageThreshold": {
+      "global": {
+        "branches": 70,
+        "functions": 100,
+        "lines": 95,
+        "statements": 88
+      }
+    },
+    "testPathIgnorePatterns": [
+      "/dist/",
+      "/.webpack/"
+    ],
+    "verbose": true
+  }
+}

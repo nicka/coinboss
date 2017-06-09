@@ -1,0 +1,40 @@
+{
+  "extends": "airbnb-base",
+  "globals": {
+    "afterAll": true,
+    "afterEach": true,
+    "beforeAll": true,
+    "beforeEach": true,
+    "describe": true,
+    "expect": true,
+    "fail": true,
+    "it": true,
+    "jasmine": true,
+    "jest": true,
+    "test": true
+  },
+  "rules": {
+    "newline-per-chained-call": 0,
+    "no-console": 0,
+    "no-empty-pattern": 0,
+    "no-underscore-dangle": 0,
+    "strict": 0,
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/*.test.js", "**/*.spec.js", "**/test/support/**/*.js", "**/cli/**/*.js", "scripts/*.js"]
+      }
+    ],
+    "valid-jsdoc": ["error", {
+      "prefer": { "arg": "param", "argument": "param", "class": "constructor", "return": "returns", "virtual": "abstract" },
+      "preferType": { "boolean": "Boolean", "number": "Number", "object": "Object", "string": "String" },
+      "requireReturn": false
+    }]
+  },
+  "settings": {
+    "import/core-modules": [
+      "aws-sdk"
+    ]
+  }
+}

@@ -1,0 +1,102 @@
+service: ${file(package.json):name}
+
+plugins:
+  # - serverless-plugin-diff
+  - serverless-webpack
+
+custom:
+  highBuyPriceTopicName: ${self:service}-high-buy-price-${self:custom.stage}
+  lowBuyPriceTopicName: ${self:service}-low-buy-price-${self:custom.stage}
+  highSellPriceTopicName: ${self:service}-high-sell-price-${self:custom.stage}
+  lowSellPriceTopicName: ${self:service}-low-sell-price-${self:custom.stage}
+  stage: ${env:STAGE}
+  webpackIncludeModules: true
+
+provider:
+  cfLogs: true
+  deploymentBucket: codedrops-sls-deploys-${self:provider.region}
+  environment:
+    ENVIRONMENT: ${self:custom.stage}
+    NODE_ENV: ${self:custom.stage}
+    REGION: ${self:provider.region}
+    SERVICE_NAME: ${self:service}
+    STAGE: ${self:custom.stage}
+    VERSION: ${file(package.json):version}
+    # API Providers
+    COINBASE_API_KEY: ${env:COINBASE_API_KEY}
+    COINBASE_API_SECRET: ${env:COINBASE_API_SECRET}
+    # Exchange/Buy Settings
+    PREFERRED_CRYPTO_CURRENCY: ${env:PREFERRED_CRYPTO_CURRENCY}
+    PREFERRED_LOCAL_CURRENCY: ${env:PREFERRED_LOCAL_CURRENCY}
+    PREFERRED_WALLET: ${env:PREFERRED_WALLET}
+    BUY_AMOUNT: ${env:BUY_AMOUNT}
+    SELL_AMOUNT: ${env:SELL_AMOUNT}
+    # Alarm settings
+    LOW_BUY_PRICE_THRESHOLD: ${env:LOW_BUY_PRICE_THRESHOLD}
+    HIGH_BUY_PRICE_THRESHOLD: ${env:HIGH_BUY_PRICE_THRESHOLD}
+    LOW_SELL_PRICE_THRESHOLD: ${env:LOW_SELL_PRICE_THRESHOLD}
+    HIGH_SELL_PRICE_THRESHOLD: ${env:HIGH_SELL_PRICE_THRESHOLD}
+    # SMS Settings
+    AWS_SMS_REGION: ${env:AWS_SMS_REGION}
+    AWS_SMS_TO: ${env:AWS_SMS_TO}
+  iamRoleStatements: ${file(cloudformation/iam.yml)}
+  name: aws
+  profile: ${env:AWS_PROFILE}
+  region: ${env:REGION}
+  runtime: nodejs6.10
+  versionFunctions: false
+
+functions:
+  getExchangeRates:
+    handler: handler.getExchangeRates
+    memorySize: 128
+    timeout: 5
+    events:
+      - schedule:
+          rate: rate(1 minute)
+          enabled: true
+      # - http:
+      #     method: GET
+      #     path: getExchangeRates
+
+  exchangeRateAlarm:
+    handler: handler.exchangeRateAlarm
+    memorySize: 128
+    timeout: 30
+    events:
+      - sns:
+          arn:
+            Ref: HighBuyPriceTopic
+          topicName: ${self:custom.highBuyPriceTopicName}
+      - sns:
+          arn:
+            Ref: LowSellPriceTopic
+          topicName: ${self:custom.lowSellPriceTopicName}
+
+  buy:
+    handler: handler.buy
+    memorySize: 128
+    timeout: 30
+    events:
+      - sns:
+          arn:
+            Ref: LowBuyPriceTopic
+          topicName: ${self:custom.lowBuyPriceTopicName}
+      # - http:
+      #     method: GET
+      #     path: buy
+
+  sell:
+    handler: handler.sell
+    memorySize: 128
+    timeout: 30
+    events:
+      - sns:
+          arn:
+            Ref: HighSellPriceTopic
+          topicName: ${self:custom.highSellPriceTopicName}
+      # - http:
+      #     method: GET
+      #     path: sell
+
+resources: ${file(cloudformation/template.yml)}

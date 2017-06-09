@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Coinbase buy or sell cryptocurrency buy() buys cryptocurrency 1`] = `
+Object {
+  "amount": "1.00000000",
+  "currency": "ETH",
+}
+`;
+
+exports[`Coinbase buy or sell cryptocurrency sell() sells cryptocurrency 1`] = `
+Object {
+  "amount": "1.00000000",
+  "currency": "ETH",
+}
+`;
+
+exports[`Coinbase getExchangeRates() stores exchange rates within CloudWatch 1`] = `
+Array [
+  Object {
+    "status": "mocked",
+  },
+  Object {
+    "status": "mocked",
+  },
+  Object {
+    "status": "mocked",
+  },
+]
+`;

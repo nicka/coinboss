@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CloudWatch setupBuySellDimensions() returns an array of dimensions 1`] = `
+Array [
+  Object {
+    "Name": "CryptoCurrency",
+    "Value": "ETH",
+  },
+  Object {
+    "Name": "LocalCurrency",
+    "Value": "EUR",
+  },
+  Object {
+    "Name": "Stage",
+    "Value": "dev",
+  },
+]
+`;

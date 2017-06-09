@@ -1,0 +1,116 @@
+Description: "AWS resources for project: ${self:service}-${self:custom.stage}-${self:provider.region}"
+
+# Conditions:
+
+Resources:
+  # Alerting Topics
+  LowBuyPriceTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ${self:custom.lowBuyPriceTopicName}
+
+  HighBuyPriceTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ${self:custom.highBuyPriceTopicName}
+
+  LowSellPriceTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ${self:custom.lowSellPriceTopicName}
+
+  HighSellPriceTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: ${self:custom.highSellPriceTopicName}
+
+  # Alarms and Alerting
+  LowBuyPriceAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmActions:
+        - Ref: LowBuyPriceTopic
+      AlarmDescription: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY} buy price ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}, is lower than preferred threshold.
+      ComparisonOperator: LessThanOrEqualToThreshold
+      Dimensions:
+        - Name: CryptoCurrency
+          Value: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}
+        - Name: LocalCurrency
+          Value: ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}
+        - Name: Stage
+          Value: ${self:provider.environment.STAGE}
+      EvaluationPeriods: 1
+      MetricName: BuyPrice
+      Namespace: Coinboss
+      Period: 60
+      Statistic: Average
+      Threshold: ${self:provider.environment.LOW_BUY_PRICE_THRESHOLD}
+      Unit: Count
+
+  HighBuyPriceAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmActions:
+        - Ref: HighBuyPriceTopic
+      AlarmDescription: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY} buy price ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}, is higher than preferred threshold.
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: CryptoCurrency
+          Value: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}
+        - Name: LocalCurrency
+          Value: ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}
+        - Name: Stage
+          Value: ${self:provider.environment.STAGE}
+      EvaluationPeriods: 1
+      MetricName: BuyPrice
+      Namespace: Coinboss
+      Period: 300
+      Statistic: Average
+      Threshold: ${self:provider.environment.HIGH_BUY_PRICE_THRESHOLD}
+      Unit: Count
+
+  LowSellPriceAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmActions:
+        - Ref: LowSellPriceTopic
+      AlarmDescription: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY} buy price ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}, is lower than preferred threshold.
+      ComparisonOperator: LessThanOrEqualToThreshold
+      Dimensions:
+        - Name: CryptoCurrency
+          Value: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}
+        - Name: LocalCurrency
+          Value: ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}
+        - Name: Stage
+          Value: ${self:provider.environment.STAGE}
+      EvaluationPeriods: 1
+      MetricName: SellPrice
+      Namespace: Coinboss
+      Period: 300
+      Statistic: Average
+      Threshold: ${self:provider.environment.LOW_SELL_PRICE_THRESHOLD}
+      Unit: Count
+
+  HighSellPriceAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmActions:
+        - Ref: HighSellPriceTopic
+      AlarmDescription: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY} buy price ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}, is higher than preferred threshold.
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      Dimensions:
+        - Name: CryptoCurrency
+          Value: ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}
+        - Name: LocalCurrency
+          Value: ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}
+        - Name: Stage
+          Value: ${self:provider.environment.STAGE}
+      EvaluationPeriods: 1
+      MetricName: SellPrice
+      Namespace: Coinboss
+      Period: 60
+      Statistic: Average
+      Threshold: ${self:provider.environment.HIGH_SELL_PRICE_THRESHOLD}
+      Unit: Count
+
+# Outputs:

@@ -1,0 +1,17 @@
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless
+
+# Webpack
+dist
+.webpack
+
+# Secrets
+.env.*
+!.env.example
+
+# Runtime data
+coverage

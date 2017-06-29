@@ -14,7 +14,6 @@ custom:
 
 provider:
   cfLogs: true
-  deploymentBucket: codedrops-sls-deploys-${self:provider.region}
   environment:
     ENVIRONMENT: ${self:custom.stage}
     NODE_ENV: ${self:custom.stage}

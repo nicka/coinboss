@@ -36,12 +36,12 @@
                 "view": "timeSeries",
                 "stacked": false,
                 "metrics": [
-                    [ "${self:service}", "BuyPrice", "CryptoCurrency", "${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}", "Stage", "${self:custom.stage}", "LocalCurrency", "${self:provider.environment.PREFERRED_LOCAL_CURRENCY}" ],
-                    [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "color": "#ffbb78", "label": "Sell" } ],
+                    [ "${self:service}", "BuyPrice", "CryptoCurrency", "${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}", "Stage", "${self:custom.stage}", "LocalCurrency", "${self:provider.environment.PREFERRED_LOCAL_CURRENCY}", { "color": "#aec7e8", "label": "Buy actual" } ],
+                    [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "color": "#ffbb78", "label": "Sell actual" } ],
                     [ ".", "BuyPrice", ".", ".", ".", ".", ".", ".", { "period": 3600, "color": "#1f77b4", "label": "Buy hourly average" } ],
                     [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "period": 3600, "color": "#ff7f0e", "label": "Sell hourly average" } ],
-                    [ ".", "BuyPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "color": "#d62728", "label": "Buy daily average" } ],
-                    [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "color": "#2ca02c", "label": "Sell daily average" } ]
+                    [ ".", "BuyPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "label": "Buy daily average", "color": "#d62728" } ],
+                    [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "label": "Sell daily average", "color": "#2ca02c" } ]
                 ],                "region": "${self:provider.region}",
                 "title": "Buy / Sell ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}-${self:provider.environment.PREFERRED_LOCAL_CURRENCY}"
             }

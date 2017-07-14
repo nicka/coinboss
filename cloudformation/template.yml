@@ -118,4 +118,5 @@ Resources:
     Properties:
       DashboardName: ${self:service}-${self:custom.stage}
       DashboardBody: ${file(cloudformation/dashboard.txt)}
+
 # Outputs:

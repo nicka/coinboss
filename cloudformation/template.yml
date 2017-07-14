@@ -113,4 +113,9 @@ Resources:
       Threshold: ${self:provider.environment.HIGH_SELL_PRICE_THRESHOLD}
       Unit: Count
 
+  Dashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: ${self:service}-${self:custom.stage}
+      DashboardBody: ${file(cloudformation/dashboard.txt)}
 # Outputs:

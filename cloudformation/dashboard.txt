@@ -40,8 +40,8 @@
                     [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "color": "#ffbb78", "label": "Sell actual" } ],
                     [ ".", "BuyPrice", ".", ".", ".", ".", ".", ".", { "period": 3600, "color": "#1f77b4", "label": "Buy hourly average" } ],
                     [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "period": 3600, "color": "#ff7f0e", "label": "Sell hourly average" } ],
-                    [ ".", "BuyPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "label": "Buy daily average", "color": "#d62728" } ],
-                    [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "label": "Sell daily average", "color": "#2ca02c" } ]
+                    [ ".", "BuyPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "label": "Buy daily average", "color": "#ff9896" } ],
+                    [ ".", "SellPrice", ".", ".", ".", ".", ".", ".", { "period": 86400, "label": "Sell daily average", "color": "#98df8a" } ]
                 ],                "region": "${self:provider.region}",
                 "title": "Buy / Sell ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}-${self:provider.environment.PREFERRED_LOCAL_CURRENCY}"
             }

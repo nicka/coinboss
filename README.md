@@ -1,3 +1,7 @@
+[![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
+[![Coverage-Status](https://coveralls.io/repos/github/nicka/coinboss/badge.svg?branch=master)](https://coveralls.io/github/nicka/coinboss?branch=master)
+[![Build-Status](https://travis-ci.org/nicka/coinboss.svg?branch=master)](https://travis-ci.org/nicka/coinboss)
+
 <div align="center">
   <img src="https://user-images.githubusercontent.com/195404/27678009-e8f765d4-5cb3-11e7-934a-76309f796af3.png">
 </div>

@@ -4,6 +4,7 @@
   "description": "Automagically buy BTC, ETH or LTC on Coinbase, based on user defined thresholds.",
   "author": "Nick den Engelsman",
   "private": false,
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/nicka/coinboss"

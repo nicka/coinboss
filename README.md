@@ -18,6 +18,8 @@ Automagically buy BTC, ETH or LTC on Coinbase, based on user defined thresholds.
 
 # Prerequisites
 
+## Yarn
+
 For node module management Coinboss uses [Yarn](https://yarnpkg.com/) over NPM.
 
 To install yarn globally on your machine please check [Installing Yarn](https://yarnpkg.com/en/docs/install#mac-tab).
@@ -27,6 +29,15 @@ After that you can install all service dependencies with:
 ```bash
 yarn
 ```
+
+## Coinbase
+
+You need a Coinbase.com API key with the following permissions:
+
+- `wallet:accounts:read`
+- `wallet:buys:create`
+- `wallet:payment-methods:read`
+- `wallet:sells:create`
 
 # Quick Start
 

@@ -1,7 +1,9 @@
+/* eslint no-template-curly-in-string: "off" */
+
 'use strict';
 
 module.exports.dashboard = () => {
-  var dashboard_template = JSON.stringify({
+  let dashboardTemplate = JSON.stringify({
     widgets: [
       {
         type: 'text',
@@ -11,7 +13,7 @@ module.exports.dashboard = () => {
         height: 1,
         properties: {
           markdown: '## ${self:service}',
-        }
+        },
       },
       {
         type: 'metric',
@@ -154,93 +156,93 @@ module.exports.dashboard = () => {
           ],
           region: '${self:provider.region}',
           title: 'Buy / Sell ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}-${self:provider.environment.PREFERRED_LOCAL_CURRENCY}',
-        }
+        },
       },
       {
-        type: "metric",
+        type: 'metric',
         x: 0,
         y: 13,
         width: 6,
         height: 6,
         properties: {
-          title: "Low Buy Price",
+          title: 'Low Buy Price',
           annotations: {
-              alarms: [
-                "arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:LowBuyPriceAlarmJOIN"
-              ]
+            alarms: [
+              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:LowBuyPriceAlarmJOIN',
+            ],
           },
-          view: "timeSeries",
-          stacked: false
-        }
+          view: 'timeSeries',
+          stacked: false,
+        },
       },
       {
-        type: "metric",
+        type: 'metric',
         x: 6,
         y: 13,
         width: 6,
         height: 6,
         properties: {
-          title: "Low Sell Price",
+          title: 'Low Sell Price',
           annotations: {
-              alarms: [
-                "arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:LowSellPriceAlarmJOIN"
-              ]
+            alarms: [
+              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:LowSellPriceAlarmJOIN',
+            ],
           },
-          view: "timeSeries",
-          stacked: false
-        }
+          view: 'timeSeries',
+          stacked: false,
+        },
       },
       {
-        type: "metric",
+        type: 'metric',
         x: 12,
         y: 13,
         width: 6,
         height: 6,
         properties: {
-          title: "High Buy Price",
+          title: 'High Buy Price',
           annotations: {
-              alarms: [
-                "arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:HighBuyPriceAlarmJOIN"
-              ]
+            alarms: [
+              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:HighBuyPriceAlarmJOIN',
+            ],
           },
-          view: "timeSeries",
-          stacked: false
-        }
+          view: 'timeSeries',
+          stacked: false,
+        },
       },
       {
-        type: "metric",
+        type: 'metric',
         x: 18,
         y: 13,
         width: 6,
         height: 6,
         properties: {
-          title: "High Sell Price",
+          title: 'High Sell Price',
           annotations: {
-              alarms: [
-                "arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:HighSellPriceAlarmJOIN"
-              ]
+            alarms: [
+              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:HighSellPriceAlarmJOIN',
+            ],
           },
-          view: "timeSeries",
-          stacked: false
-        }
-      }
-    ]
+          view: 'timeSeries',
+          stacked: false,
+        },
+      },
+    ],
   });
 
   // because of variable collisions with serverless, we can't use fn:sub
   // so we need to split the template to use fn:join to ref the alarms
-  dashboard_template = dashboard_template.split('JOIN');
-  var lines = dashboard_template.map(function(line) {
-    if(line.indexOf('REF:') > -1) {
-      return { Ref: line.replace('REF:', '') }
+  dashboardTemplate = dashboardTemplate.split('JOIN');
+  const lines = dashboardTemplate.map((line) => {
+    if (line.indexOf('REF:') > -1) {
+      return { Ref: line.replace('REF:', '') };
     }
     return line;
   });
   return {
-    "Fn::Join":
+    'Fn::Join':
     [
-      "",
-      lines
-    ]
-  }
-}
+      '',
+      lines,
+    ],
+  };
+};

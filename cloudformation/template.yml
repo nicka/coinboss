@@ -117,6 +117,6 @@ Resources:
     Type: AWS::CloudWatch::Dashboard
     Properties:
       DashboardName: ${self:service}-${self:custom.stage}
-      DashboardBody: ${file(cloudformation/dashboard.txt)}
+      DashboardBody: ${file(cloudformation/dashboard.js):dashboard}
 
 # Outputs:

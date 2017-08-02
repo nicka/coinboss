@@ -1,20 +1,18 @@
-/* eslint no-template-curly-in-string: "off" */
+/* eslint-disable no-template-curly-in-string */
 
 'use strict';
 
+const label = (title, props) => ['.', title, '.', '.', '.', '.', '.', '.', props];
+const alarmArn = cfAlarmResource => [
+  'arn:aws:cloudwatch:${self:provider.region}',
+  '-SPLIT-Ref:AWS::AccountId-SPLIT-',
+  'alarm',
+  `-SPLIT-Ref:${cfAlarmResource}-SPLIT-`,
+].join(':');
+
 module.exports.dashboard = () => {
-  let dashboardTemplate = JSON.stringify({
+  const json = JSON.stringify({
     widgets: [
-      {
-        type: 'text',
-        x: 0,
-        y: 0,
-        width: 24,
-        height: 1,
-        properties: {
-          markdown: '## ${self:service}',
-        },
-      },
       {
         type: 'metric',
         x: 0,
@@ -25,7 +23,7 @@ module.exports.dashboard = () => {
           view: 'singleValue',
           metrics: [
             [
-              '${self:service}',
+              '${self:custom.cloudWatchNamespace}',
               'BuyPrice',
               'CryptoCurrency',
               '${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}',
@@ -37,19 +35,9 @@ module.exports.dashboard = () => {
                 label: 'Buy',
               },
             ],
-            [
-              '.',
-              'SellPrice',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              {
-                label: 'Sell',
-              },
-            ],
+            label('SellPrice', {
+              label: 'Sell',
+            }),
           ],
           region: '${self:provider.region}',
           title: 'Current price in ${self:provider.environment.PREFERRED_LOCAL_CURRENCY}',
@@ -66,7 +54,7 @@ module.exports.dashboard = () => {
           stacked: false,
           metrics: [
             [
-              '${self:service}',
+              '${self:custom.cloudWatchNamespace}',
               'BuyPrice',
               'CryptoCurrency',
               '${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}',
@@ -79,80 +67,30 @@ module.exports.dashboard = () => {
                 label: 'Buy actual',
               },
             ],
-            [
-              '.',
-              'SellPrice',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              {
-                color: '#ffbb78',
-                label: 'Sell actual',
-              },
-            ],
-            [
-              '.',
-              'BuyPrice',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              {
-                period: 3600,
-                color: '#1f77b4',
-                label: 'Buy hourly average',
-              },
-            ],
-            [
-              '.',
-              'SellPrice',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              {
-                period: 3600,
-                color: '#ff7f0e',
-                label: 'Sell hourly average',
-              },
-            ],
-            [
-              '.',
-              'BuyPrice',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              {
-                period: 86400,
-                label: 'Buy daily average',
-                color: '#ff9896',
-              },
-            ],
-            [
-              '.',
-              'SellPrice',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              '.',
-              {
-                period: 86400,
-                label: 'Sell daily average',
-                color: '#98df8a',
-              },
-            ],
+            label('SellPrice', {
+              color: '#ffbb78',
+              label: 'Sell actual',
+            }),
+            label('BuyPrice', {
+              period: 3600,
+              color: '#1f77b4',
+              label: 'Buy hourly average',
+            }),
+            label('SellPrice', {
+              period: 3600,
+              color: '#ff7f0e',
+              label: 'Sell hourly average',
+            }),
+            label('BuyPrice', {
+              period: 86400,
+              label: 'Buy daily average',
+              color: '#ff9896',
+            }),
+            label('SellPrice', {
+              period: 86400,
+              label: 'Sell daily average',
+              color: '#98df8a',
+            }),
           ],
           region: '${self:provider.region}',
           title: 'Buy / Sell ${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}-${self:provider.environment.PREFERRED_LOCAL_CURRENCY}',
@@ -167,9 +105,7 @@ module.exports.dashboard = () => {
         properties: {
           title: 'Low Buy Price',
           annotations: {
-            alarms: [
-              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:LowBuyPriceAlarmJOIN',
-            ],
+            alarms: [alarmArn('LowBuyPriceAlarm')],
           },
           view: 'timeSeries',
           stacked: false,
@@ -184,9 +120,7 @@ module.exports.dashboard = () => {
         properties: {
           title: 'Low Sell Price',
           annotations: {
-            alarms: [
-              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:LowSellPriceAlarmJOIN',
-            ],
+            alarms: [alarmArn('LowSellPriceAlarm')],
           },
           view: 'timeSeries',
           stacked: false,
@@ -201,9 +135,7 @@ module.exports.dashboard = () => {
         properties: {
           title: 'High Buy Price',
           annotations: {
-            alarms: [
-              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:HighBuyPriceAlarmJOIN',
-            ],
+            alarms: [alarmArn('HighBuyPriceAlarm')],
           },
           view: 'timeSeries',
           stacked: false,
@@ -218,9 +150,7 @@ module.exports.dashboard = () => {
         properties: {
           title: 'High Sell Price',
           annotations: {
-            alarms: [
-              'arn:aws:cloudwatch:${self:provider.region}:JOINREF:AWS::AccountIdJOIN:alarm:JOINREF:HighSellPriceAlarmJOIN',
-            ],
+            alarms: [alarmArn('HighSellPriceAlarm')],
           },
           view: 'timeSeries',
           stacked: false,
@@ -229,20 +159,19 @@ module.exports.dashboard = () => {
     ],
   });
 
-  // because of variable collisions with serverless, we can't use fn:sub
-  // so we need to split the template to use fn:join to ref the alarms
-  dashboardTemplate = dashboardTemplate.split('JOIN');
-  const lines = dashboardTemplate.map((line) => {
-    if (line.indexOf('REF:') > -1) {
-      return { Ref: line.replace('REF:', '') };
-    }
-    return line;
-  });
   return {
-    'Fn::Join':
-    [
+    'Fn::Join': [
       '',
-      lines,
+      /*
+        Because of variable collisions with serverless, we can't use Fn::Sub so we need to split the
+        template to use Fn::Join to Ref the alarms.
+      */
+      json.split('-SPLIT-').map((line) => {
+        if (line.includes('Ref:')) {
+          return { Ref: line.replace('Ref:', '') };
+        }
+        return line;
+      }) // eslint-disable-line
     ],
   };
 };

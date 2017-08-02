@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard returns cloudformation dashboard body 1`] = `
+Object {
+  "Fn::Join": Array [
+    "",
+    Array [
+      "{\\"widgets\\":[{\\"type\\":\\"metric\\",\\"x\\":0,\\"y\\":1,\\"width\\":6,\\"height\\":3,\\"properties\\":{\\"view\\":\\"singleValue\\",\\"metrics\\":[[\\"\${self:custom.cloudWatchNamespace}\\",\\"BuyPrice\\",\\"CryptoCurrency\\",\\"\${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}\\",\\"Stage\\",\\"\${self:custom.stage}\\",\\"LocalCurrency\\",\\"\${self:provider.environment.PREFERRED_LOCAL_CURRENCY}\\",{\\"label\\":\\"Buy\\"}],[\\".\\",\\"SellPrice\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",{\\"label\\":\\"Sell\\"}]],\\"region\\":\\"\${self:provider.region}\\",\\"title\\":\\"Current price in \${self:provider.environment.PREFERRED_LOCAL_CURRENCY}\\"}},{\\"type\\":\\"metric\\",\\"x\\":0,\\"y\\":4,\\"width\\":24,\\"height\\":9,\\"properties\\":{\\"view\\":\\"timeSeries\\",\\"stacked\\":false,\\"metrics\\":[[\\"\${self:custom.cloudWatchNamespace}\\",\\"BuyPrice\\",\\"CryptoCurrency\\",\\"\${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}\\",\\"Stage\\",\\"\${self:custom.stage}\\",\\"LocalCurrency\\",\\"\${self:provider.environment.PREFERRED_LOCAL_CURRENCY}\\",{\\"color\\":\\"#aec7e8\\",\\"label\\":\\"Buy actual\\"}],[\\".\\",\\"SellPrice\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",{\\"color\\":\\"#ffbb78\\",\\"label\\":\\"Sell actual\\"}],[\\".\\",\\"BuyPrice\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",{\\"period\\":3600,\\"color\\":\\"#1f77b4\\",\\"label\\":\\"Buy hourly average\\"}],[\\".\\",\\"SellPrice\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",{\\"period\\":3600,\\"color\\":\\"#ff7f0e\\",\\"label\\":\\"Sell hourly average\\"}],[\\".\\",\\"BuyPrice\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",{\\"period\\":86400,\\"label\\":\\"Buy daily average\\",\\"color\\":\\"#ff9896\\"}],[\\".\\",\\"SellPrice\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",\\".\\",{\\"period\\":86400,\\"label\\":\\"Sell daily average\\",\\"color\\":\\"#98df8a\\"}]],\\"region\\":\\"\${self:provider.region}\\",\\"title\\":\\"Buy / Sell \${self:provider.environment.PREFERRED_CRYPTO_CURRENCY}-\${self:provider.environment.PREFERRED_LOCAL_CURRENCY}\\"}},{\\"type\\":\\"metric\\",\\"x\\":0,\\"y\\":13,\\"width\\":6,\\"height\\":6,\\"properties\\":{\\"title\\":\\"Low Buy Price\\",\\"annotations\\":{\\"alarms\\":[\\"arn:aws:cloudwatch:\${self:provider.region}:",
+      Object {
+        "Ref": "AWS::AccountId",
+      },
+      ":alarm:",
+      Object {
+        "Ref": "LowBuyPriceAlarm",
+      },
+      "\\"]},\\"view\\":\\"timeSeries\\",\\"stacked\\":false}},{\\"type\\":\\"metric\\",\\"x\\":6,\\"y\\":13,\\"width\\":6,\\"height\\":6,\\"properties\\":{\\"title\\":\\"Low Sell Price\\",\\"annotations\\":{\\"alarms\\":[\\"arn:aws:cloudwatch:\${self:provider.region}:",
+      Object {
+        "Ref": "AWS::AccountId",
+      },
+      ":alarm:",
+      Object {
+        "Ref": "LowSellPriceAlarm",
+      },
+      "\\"]},\\"view\\":\\"timeSeries\\",\\"stacked\\":false}},{\\"type\\":\\"metric\\",\\"x\\":12,\\"y\\":13,\\"width\\":6,\\"height\\":6,\\"properties\\":{\\"title\\":\\"High Buy Price\\",\\"annotations\\":{\\"alarms\\":[\\"arn:aws:cloudwatch:\${self:provider.region}:",
+      Object {
+        "Ref": "AWS::AccountId",
+      },
+      ":alarm:",
+      Object {
+        "Ref": "HighBuyPriceAlarm",
+      },
+      "\\"]},\\"view\\":\\"timeSeries\\",\\"stacked\\":false}},{\\"type\\":\\"metric\\",\\"x\\":18,\\"y\\":13,\\"width\\":6,\\"height\\":6,\\"properties\\":{\\"title\\":\\"High Sell Price\\",\\"annotations\\":{\\"alarms\\":[\\"arn:aws:cloudwatch:\${self:provider.region}:",
+      Object {
+        "Ref": "AWS::AccountId",
+      },
+      ":alarm:",
+      Object {
+        "Ref": "HighSellPriceAlarm",
+      },
+      "\\"]},\\"view\\":\\"timeSeries\\",\\"stacked\\":false}}]}",
+    ],
+  ],
+}
+`;

@@ -5,6 +5,7 @@ plugins:
   - serverless-webpack
 
 custom:
+  cloudWatchNamespace: Coinboss
   highBuyPriceTopicName: ${self:service}-high-buy-price-${self:custom.stage}
   lowBuyPriceTopicName: ${self:service}-low-buy-price-${self:custom.stage}
   highSellPriceTopicName: ${self:service}-high-sell-price-${self:custom.stage}
@@ -31,6 +32,7 @@ provider:
     BUY_AMOUNT: ${env:BUY_AMOUNT}
     SELL_AMOUNT: ${env:SELL_AMOUNT}
     # Alarm settings
+    CLOUDWATCH_NAMESPACE: ${self:custom.cloudWatchNamespace}
     LOW_BUY_PRICE_THRESHOLD: ${env:LOW_BUY_PRICE_THRESHOLD}
     HIGH_BUY_PRICE_THRESHOLD: ${env:HIGH_BUY_PRICE_THRESHOLD}
     LOW_SELL_PRICE_THRESHOLD: ${env:LOW_SELL_PRICE_THRESHOLD}

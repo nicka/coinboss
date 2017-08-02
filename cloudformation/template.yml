@@ -41,7 +41,7 @@ Resources:
           Value: ${self:provider.environment.STAGE}
       EvaluationPeriods: 1
       MetricName: BuyPrice
-      Namespace: ${self:service}
+      Namespace: ${self:custom.cloudWatchNamespace}
       Period: 60
       Statistic: Average
       Threshold: ${self:provider.environment.LOW_BUY_PRICE_THRESHOLD}
@@ -63,7 +63,7 @@ Resources:
           Value: ${self:provider.environment.STAGE}
       EvaluationPeriods: 1
       MetricName: BuyPrice
-      Namespace: ${self:service}
+      Namespace: ${self:custom.cloudWatchNamespace}
       Period: 300
       Statistic: Average
       Threshold: ${self:provider.environment.HIGH_BUY_PRICE_THRESHOLD}
@@ -85,7 +85,7 @@ Resources:
           Value: ${self:provider.environment.STAGE}
       EvaluationPeriods: 1
       MetricName: SellPrice
-      Namespace: ${self:service}
+      Namespace: ${self:custom.cloudWatchNamespace}
       Period: 300
       Statistic: Average
       Threshold: ${self:provider.environment.LOW_SELL_PRICE_THRESHOLD}
@@ -107,12 +107,13 @@ Resources:
           Value: ${self:provider.environment.STAGE}
       EvaluationPeriods: 1
       MetricName: SellPrice
-      Namespace: ${self:service}
+      Namespace: ${self:custom.cloudWatchNamespace}
       Period: 60
       Statistic: Average
       Threshold: ${self:provider.environment.HIGH_SELL_PRICE_THRESHOLD}
       Unit: Count
 
+  # CloudWatch Dashboard displaying custom metrics and alarm states
   Dashboard:
     Type: AWS::CloudWatch::Dashboard
     Properties:
